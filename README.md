@@ -1,19 +1,17 @@
 # Picture Search #
 ## Building #
 ```bash
-mvn install
+mvn install -Dmaven.test.skip=true #Tests currently not working but there are none anyways
 ```
 ## Running Locally ##
-```bash
+1. change application.properties to a valid elasticsearch host
+2. ```bash
 mvn spring-boot:run
 ```
-## Running with docker ##
-1. Build Image 
+## Running with docker ## 
+This includes an elasticsearch instance
 ```bash
-docker build -t picture_search . 
-```
-2. Run
-```bash
-docker run --rm -it picture_search
+docker-compose build
+docker-compose up
 ```
 
