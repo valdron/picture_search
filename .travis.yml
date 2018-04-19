@@ -1,2 +1,6 @@
 language: java
 - openjdk8
+services:
+- elasticsearch
+before_install:
+- curl -O https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-5.6.8.deb && sudo dpkg -i --force-confnew elasticsearch-5.6.8.deb && sudo service elasticsearch restart
