@@ -16,13 +16,13 @@ public class PictureData {
     private ArrayList<String> tags;
     private String descriptionText;
     private UUID pictureId;
-    
+
     public PictureData() {
     }
 
-     /**
-     * @return the descriptionText
-     */
+    /**
+    * @return the descriptionText
+    */
     public String getDescriptionText() {
         return descriptionText;
     }
@@ -75,7 +75,6 @@ public class PictureData {
     public void setTags(ArrayList<String> tags) {
         this.tags = tags;
     }
-
 
     @Override
     public String toString() {

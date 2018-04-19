@@ -13,13 +13,12 @@ import org.springframework.data.elasticsearch.core.ElasticsearchOperations;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.data.elasticsearch.repository.config.EnableElasticsearchRepositories;
 
-
 /**
  * EsConfig
  */
 @Configuration
 @EnableElasticsearchRepositories(basePackages = "com.valdron.studienprojekt.repository")
- public class EsConfig {
+public class EsConfig {
     @Value("${elasticsearch.host}")
     private String EsHost;
 
@@ -32,14 +31,11 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
     @Bean
     public Client client() throws Exception {
 
-        Settings esSettings = Settings.builder()
-                .put("cluster.name", EsClusterName)
-                .build();
+        Settings esSettings = Settings.builder().put("cluster.name", EsClusterName).build();
 
         //https://www.elastic.co/guide/en/elasticsearch/guide/current/_transport_client_versus_node_client.html
         return new PreBuiltTransportClient(esSettings)
-                .addTransportAddress(
-				  new InetSocketTransportAddress(InetAddress.getByName(EsHost), EsPort));
+                .addTransportAddress(new InetSocketTransportAddress(InetAddress.getByName(EsHost), EsPort));
     }
 
     @Bean
@@ -47,5 +43,4 @@ import org.springframework.data.elasticsearch.repository.config.EnableElasticsea
         return new ElasticsearchTemplate(client());
     }
 
-    
 }
