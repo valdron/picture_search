@@ -2,6 +2,10 @@ version: '3'
 services: 
   web:
     build: .
+    environment:
+    - ELASTICSEARCH_CLUSTERNAME=elasticsearch
+    - ELASTICSEARCH_HOST=elasticsearch
+    - ELASTICSEARCH_PORT=9300
     ports: 
     - 8080:8080
     depends_on:

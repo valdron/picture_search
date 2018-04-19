@@ -1,11 +1,10 @@
 # Picture Search #
 ## Building #
 ```bash
-mvn install -Dmaven.test.skip=true #Tests currently not working but there are none anyways
+mvn install
 ```
 ## Running Locally ##
-1. change application.properties to a valid elasticsearch host
-2. ```bash
+```bash
 mvn spring-boot:run
 ```
 ## Running with docker ## 
