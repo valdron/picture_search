@@ -1,8 +1,6 @@
 package com.valdron.studienprojekt.service;
 
 import java.util.Optional;
-import java.util.UUID;
-
 import com.valdron.studienprojekt.model.PictureData;
 import com.valdron.studienprojekt.repository.PictureDataRepository;
 
@@ -18,8 +16,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class PictureDataServiceImpl implements PictureDataService {
 
-    @Autowired
-    private PictureDataRepository pictureDataRepository;
+	@Autowired
+	private PictureDataRepository pictureDataRepository;
 
 	@Override
 	public PictureData save(PictureData pictureData) {
@@ -43,8 +41,7 @@ public class PictureDataServiceImpl implements PictureDataService {
 
 	@Override
 	public Page<PictureData> findByQuery(String query, PageRequest pageRequest) {
-        return pictureDataRepository.search(new SimpleQueryStringBuilder(query), pageRequest);
+		return pictureDataRepository.search(new SimpleQueryStringBuilder(query), pageRequest);
 	}
 
-    
 }
