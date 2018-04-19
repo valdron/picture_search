@@ -1,5 +1,8 @@
 package com.valdron.studienprojekt;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Enumeration;
 import java.util.Optional;
 import com.valdron.studienprojekt.model.PictureData;
 import com.valdron.studienprojekt.service.PictureDataService;
@@ -7,6 +10,9 @@ import com.valdron.studienprojekt.service.PictureDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -37,10 +43,23 @@ public class StudienprojektApplication {
 	}
 
 	@RequestMapping(path = "/", consumes = MediaType.MULTIPART_FORM_DATA_VALUE, method = RequestMethod.POST)
-	public ResponseEntity<Void> uploadPicture(@RequestParam("picture") MultipartFile file,
+	public ResponseEntity<PictureData> uploadPicture(@RequestParam("picture") MultipartFile file,
 			@RequestParam("tags") String tags, @RequestParam("description") String description) {
 
-		return new ResponseEntity<>(HttpStatus.NOT_IMPLEMENTED);
+		PictureData pictureData = new PictureData();
+		pictureData.setDescriptionText(description);
+
+		ArrayList<String> tagsSplit = new ArrayList<String>(Arrays.asList(tags.split(",|\\s")));
+		tagsSplit.removeIf(tag -> tag.isEmpty());
+		pictureData.setTags(tagsSplit);
+
+		pictureData = pictureDataService.save(pictureData);
+		return new ResponseEntity<>(pictureData, HttpStatus.CREATED);
+	}
+
+	@GetMapping("/query")
+	public Page<PictureData> getByQuery(@RequestParam("queryString") String query) {
+		return pictureDataService.findByQuery(query, PageRequest.of(0, 10));
 	}
 
 	public static void main(String[] args) {
