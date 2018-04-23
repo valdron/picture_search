@@ -20,6 +20,12 @@ public class PictureData {
     public PictureData() {
     }
 
+    public PictureData(NewPictureData newPictureData) {
+        tags = newPictureData.getTags();
+        descriptionText = newPictureData.getDescriptionString();
+        pictureId = newPictureData.getPictureId();
+    }
+
     /**
     * @return the descriptionText
     */
