@@ -36,7 +36,7 @@ public class PicturestoreApplication {
 	public UUID storeFile(@RequestBody byte[] file, HttpServletResponse response, HttpServletRequest request) throws IOException {
 		UUID newUuid = UUID.randomUUID();
 
-		File newFile = new File("./pictures/" + newUuid + request.getContentType().split("/")[1]);
+		File newFile = new File("./pictures/" + newUuid + "." + request.getContentType().split("/")[1]);
 		newFile.createNewFile();
 
 		FileOutputStream fileOutputStream = new FileOutputStream(newFile);
@@ -71,8 +71,10 @@ public class PicturestoreApplication {
 			FileInputStream pictureInputStream = new FileInputStream(picture);
 
 			response.setStatus(200);
-			response.addHeader("Content-disposition", "attachment;filename=" + picture.getName());
-			response.setContentType("image/" + picture.getName().split(".")[1]);
+			String pictureName = picture.getName();
+			String pictureExtension = pictureName.split("\\.")[1];
+			response.addHeader("Content-disposition", "attachment;filename=" + pictureName);
+			response.setContentType("image/" + pictureExtension);
 			IOUtils.copy(pictureInputStream, response.getOutputStream());
 			response.flushBuffer();
 		} catch (FileNotFoundException e) {
