@@ -27,3 +27,9 @@ services:
       - SERVER_PORT=8081
     ports: 
       - 8081:8081
+  gateway:
+    build: ./gateway/
+    environment:
+      - SERVER_PORT=8082
+    ports:
+      - 8082:8082
