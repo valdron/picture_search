@@ -1,5 +1,5 @@
 
-for dir in * 
+for file in * 
 do
 if [ -d "$dir" ]; then
 cd $dir
