@@ -1,8 +1,8 @@
 
 for file in * 
 do
-if [ -d "$dir" ]; then
-cd $dir
+if [ -d "$file" ]; then
+cd $file
     ./build.sh
 cd -
 fi
