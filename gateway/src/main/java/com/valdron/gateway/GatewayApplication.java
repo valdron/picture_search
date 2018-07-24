@@ -29,6 +29,7 @@ import org.springframework.web.client.RestTemplate;
 
 @SpringBootApplication
 @RestController
+@RequestMapping("/")
 public class GatewayApplication {
 
 	private String pictureStoreServiceBaseUrl = "picture_store:8081/pictures/";
