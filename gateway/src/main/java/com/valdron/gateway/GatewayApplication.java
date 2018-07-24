@@ -7,9 +7,14 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.fasterxml.jackson.annotation.JsonClassDescription;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.jackson.JsonObjectDeserializer;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.HttpStatus;
@@ -63,15 +68,28 @@ public class GatewayApplication {
 	@RequestMapping(path = "picturedata", method = RequestMethod.POST, consumes = "application/json")
 	// This method requires that the picture already exists.
 	public ResponseEntity<Void> pictureDataUpload(@RequestBody String json, HttpServletRequest request)
-			throws URISyntaxException {
+			throws URISyntaxException, IOException {
 		HttpHeaders headers = new HttpHeaders();
 		headers.setContentType(new MediaType(request.getContentType()));
 		headers.setContentLength(request.getContentLengthLong());
 
+		ObjectMapper mapper = new ObjectMapper();
+		JsonNode node = mapper.readTree(json);
+		String uuid = node.get("pictureId").textValue();
+
+		RestTemplate restTemplate = new RestTemplate();
+
+		RequestEntity<Void> existsCheck = new RequestEntity<>(HttpMethod.HEAD,
+				new URI(pictureStoreServiceBaseUrl + uuid));
+		ResponseEntity<Void> exists = restTemplate.exchange(existsCheck, Void.class);
+
+		if (exists.getStatusCode() != HttpStatus.OK) {
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
+
 		RequestEntity<String> requestEntity = new RequestEntity<>(json, headers, HttpMethod.POST,
 				new URI(pictureDataStore));
 
-		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<Void> responseEntity = restTemplate.exchange(requestEntity, Void.class);
 		return responseEntity;
 	}

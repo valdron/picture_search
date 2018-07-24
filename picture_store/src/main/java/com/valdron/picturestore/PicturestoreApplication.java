@@ -14,6 +14,8 @@ import javax.servlet.http.HttpServletResponse;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,7 +35,8 @@ public class PicturestoreApplication {
 	}
 
 	@RequestMapping(path = "/", method = RequestMethod.POST, consumes = "image/*")
-	public UUID storeFile(@RequestBody byte[] file, HttpServletResponse response, HttpServletRequest request) throws IOException {
+	public UUID storeFile(@RequestBody byte[] file, HttpServletResponse response, HttpServletRequest request)
+			throws IOException {
 		UUID newUuid = UUID.randomUUID();
 
 		File newFile = new File("./pictures/" + newUuid + "." + request.getContentType().split("/")[1]);
@@ -48,19 +51,37 @@ public class PicturestoreApplication {
 		return newUuid;
 	}
 
-	@RequestMapping(path = "/{pictureId}")
-	public void getPicture(@PathVariable UUID pictureId, HttpServletResponse response) throws IOException {
+	@RequestMapping(path = "/{pictureId}", method = RequestMethod.HEAD)
+	public ResponseEntity<Void> pictureExists(@PathVariable UUID pictureId) {
 		File dir = new File(PICTURES);
+		String[] files = dir.list(new FilenameFilter() {
 
-		String[] files = dir.list(new FilenameFilter(){
-		
 			@Override
 			public boolean accept(File dir, String name) {
 				return name.startsWith(pictureId.toString());
 			}
 		});
 
-		if(files.length == 0) {
+		if (files.length == 0) {
+			return new ResponseEntity<Void>(HttpStatus.NOT_FOUND);
+		} else {
+			return new ResponseEntity<Void>(HttpStatus.OK);
+		}
+	}
+
+	@RequestMapping(path = "/{pictureId}", method = RequestMethod.GET)
+	public void getPicture(@PathVariable UUID pictureId, HttpServletResponse response) throws IOException {
+		File dir = new File(PICTURES);
+
+		String[] files = dir.list(new FilenameFilter() {
+
+			@Override
+			public boolean accept(File dir, String name) {
+				return name.startsWith(pictureId.toString());
+			}
+		});
+
+		if (files.length == 0) {
 			response.setStatus(404);
 			return;
 		}
@@ -80,10 +101,10 @@ public class PicturestoreApplication {
 		} catch (FileNotFoundException e) {
 			response.setStatus(404);
 		}
-		
+
 	}
 
-	public static void main(String[] args) {	
+	public static void main(String[] args) {
 		SpringApplication.run(PicturestoreApplication.class, args);
 	}
 }
