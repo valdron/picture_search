@@ -1,0 +1,18 @@
+<html>
+
+<head>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <link rel="stylesheet" type="text/css" href="main.css">
+</head>
+
+
+<body>
+
+    <div id="app">
+        <ps-picture v-bind:picture="picture" picture-store-base-url="http://localhost:8081/pictures/"></ps-picture>
+        <ps-uploader></ps-uploader>
+    </div>
+    <script src="main.js"></script>
+</body>
+
+</html>

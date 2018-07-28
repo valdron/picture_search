@@ -1,5 +1,7 @@
 package com.valdron.studienprojekt;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Optional;
 
 import javax.validation.Valid;
@@ -11,6 +13,7 @@ import com.valdron.studienprojekt.service.PictureDataService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -47,8 +50,13 @@ public class StudienprojektApplication {
 	}
 
 	@GetMapping("/query")
-	public Iterable<PictureData> getByQuery(@RequestParam("queryString") String query) {
-		return pictureDataService.findByQuery(query, PageRequest.of(0, 10));
+	public List<PictureData> getByQuery(@RequestParam("queryString") String query) {
+		Iterable<PictureData> pictureDatas = pictureDataService.findByQuery(query, PageRequest.of(0, 10));
+		List<PictureData> list = new ArrayList<PictureData>();
+		for (PictureData data : pictureDatas) {
+			list.add(data);
+		}
+		return list;
 	}
 
 	public static void main(String[] args) {

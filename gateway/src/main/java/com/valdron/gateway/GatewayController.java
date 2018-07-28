@@ -17,9 +17,12 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
@@ -35,6 +38,35 @@ public class GatewayController {
     @RequestMapping(path = "formUpload", method = RequestMethod.POST, consumes = "multipart/form-data")
     public void multipartFormUpload(/* TODO */) {
         // TODO: Implement Method
+    }
+
+    @GetMapping(path = "pictures/{pictureId}")
+    public ResponseEntity<byte[]> getPictureById(@PathVariable String pictureId) throws URISyntaxException {
+        RestTemplate restTemplate = new RestTemplate();
+        RequestEntity<Void> requestEntity = RequestEntity.get(new URI(pictureDataStore + pictureId)).build();
+        System.out.println(requestEntity);
+        System.out.println(pictureDataStore + pictureId);
+        try {
+            ResponseEntity<byte[]> byteResponse = restTemplate.exchange(requestEntity, byte[].class);
+            System.out.println(byteResponse);
+            return byteResponse;
+        } catch (HttpClientErrorException e) {
+            if (e.getStatusCode() == HttpStatus.NOT_FOUND) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            } else {
+                throw e;
+            }
+        }
+
+    }
+
+    @GetMapping(path = "pictures")
+    public ResponseEntity<String> queryPictures(@RequestParam("queryString") String query) throws URISyntaxException {
+        RestTemplate restTemplate = new RestTemplate();
+        RequestEntity<Void> requestEntity = RequestEntity.get(new URI(pictureDataStore + "query?queryString=" + query))
+                .build();
+        ResponseEntity<String> stringResponse = restTemplate.exchange(requestEntity, String.class);
+        return stringResponse;
     }
 
     @RequestMapping(path = "pictures", method = RequestMethod.POST, consumes = "image/*")
