@@ -33,3 +33,7 @@ services:
   #   build: ./gateway/
   #   ports:
   #     - 8080:8080
+  picture_search_gui:
+    build: ./picture-search-gui/
+    ports:
+      - 80:80
