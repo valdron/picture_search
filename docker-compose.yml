@@ -6,8 +6,8 @@ services:
     - ELASTICSEARCH_CLUSTERNAME=elasticsearch
     - ELASTICSEARCH_HOST=elasticsearch
     - ELASTICSEARCH_PORT=9300
-    ports: 
-    - 8080:8080
+    expose: 
+    - 8080
     depends_on:
     - elasticsearch
   elasticsearch:
@@ -23,13 +23,9 @@ services:
   
   picture_store:
     build: ./picture_store/
-    environment:
-      - SERVER_PORT=8081
-    ports: 
-      - 8081:8081
+    expose: 
+      - 8080
   gateway:
     build: ./gateway/
-    environment:
-      - SERVER_PORT=8082
     ports:
-      - 8082:8082
+      - 8080:8080
