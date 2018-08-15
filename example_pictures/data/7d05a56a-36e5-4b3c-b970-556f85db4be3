@@ -1,0 +1,9 @@
+{
+	"pictureId": "7d05a56a-36e5-4b3c-b970-556f85db4be3",
+	"descriptionString": "Kubernetes (auch als „K8s“ bezeichnet, deutsche Aussprache: [ˌkuːbɛɐ̯ˈneːtəs], englische Aussprache: [​ˌ​kuːbərˈnetiːs]) ist ein Open-Source-System zur Automatisierung der Bereitstellung, Skalierung und Verwaltung von Container-Anwendungen, das ursprünglich von Google entworfen und an die Cloud Native Computing Foundation gespendet wurde. Es zielt darauf ab, eine „Plattform für das automatisierte Bespielen, Skalieren und Warten von Anwendungscontainern auf verteilten Hosts“ zu liefern. Es unterstützt eine Reihe von Container-Tools, einschließlich Docker.",
+	"tags": [
+		"Kubernetes",
+		"k8s",
+		"CNC"
+	]
+}

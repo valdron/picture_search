@@ -1,0 +1,9 @@
+{
+    "pictureId": "80336545-099b-4ce8-8b21-03e592e71c7d",
+    "descriptionString": "Docker Datacenter (DDC) is a container management and deployment services project from Docker developed to help enterprises get up to speed with their own Docker-ready platforms. Docker describes its Docker Datacenter tool as \"an integrated, end-to-end platform for agile application development and management at any scale.\"",
+    "tags": [
+        "ddc",
+        "docker datacenter",
+        "docker"
+    ]
+}
