@@ -49,8 +49,8 @@ public class StudienprojektApplication {
 		return new ResponseEntity<>(pictureData, HttpStatus.CREATED);
 	}
 
-	@GetMapping("/query")
-	public List<PictureData> getByQuery(@RequestParam("queryString") String query) {
+	@PostMapping("/query")
+	public List<PictureData> getByQuery(@RequestBody String query) {
 		Iterable<PictureData> pictureDatas = pictureDataService.findByQuery(query, PageRequest.of(0, 10));
 		List<PictureData> list = new ArrayList<PictureData>();
 		for (PictureData data : pictureDatas) {

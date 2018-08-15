@@ -4,7 +4,9 @@ import java.util.Optional;
 import com.valdron.studienprojekt.model.PictureData;
 import com.valdron.studienprojekt.repository.PictureDataRepository;
 
-import org.elasticsearch.index.query.SimpleQueryStringBuilder;
+import static org.elasticsearch.index.query.QueryBuilders.queryStringQuery;
+
+import org.elasticsearch.index.query.QueryStringQueryBuilder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -41,7 +43,10 @@ public class PictureDataServiceImpl implements PictureDataService {
 
 	@Override
 	public Page<PictureData> findByQuery(String query, PageRequest pageRequest) {
-		return pictureDataRepository.search(new SimpleQueryStringBuilder(query), pageRequest);
+		System.out.println(query);
+		QueryStringQueryBuilder queryBuilder = queryStringQuery(query);
+		System.out.println(queryBuilder);
+		return pictureDataRepository.search(queryBuilder, pageRequest);
 	}
 
 }
