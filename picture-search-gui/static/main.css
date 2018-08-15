@@ -1,10 +1,10 @@
 .ps-picture {
     width: 50%;
-    margin: auto;
+    margin: 5px auto; 
     padding: 5px;
     border: 2px solid black;
 }
 
 .ps-picture > img {
-    height: 100%;
+    height: 100px;
 }

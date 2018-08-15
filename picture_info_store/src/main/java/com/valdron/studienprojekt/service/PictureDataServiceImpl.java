@@ -43,9 +43,7 @@ public class PictureDataServiceImpl implements PictureDataService {
 
 	@Override
 	public Page<PictureData> findByQuery(String query, PageRequest pageRequest) {
-		System.out.println(query);
 		QueryStringQueryBuilder queryBuilder = queryStringQuery(query);
-		System.out.println(queryBuilder);
 		return pictureDataRepository.search(queryBuilder, pageRequest);
 	}
 

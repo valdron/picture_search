@@ -1,18 +1,8 @@
 
-Vue.component('button-counter', {
-    data: function () {
-        return {
-            count: 0
-        }
-    },
-    template: '<button v-on:click="count++">You clicked me {{ count }} times.</button>'
-})
-
 Vue.component('ps-picture', {
     props: ['picture', 'pictureStoreBaseUrl'],
     data: function () {
         return {
-            count: 0,
         }
     },
     methods: {
@@ -30,36 +20,77 @@ Vue.component('ps-picture', {
               </div>`
 })
 
+Vue.component('ps-query', {
+    data: function () {
+        return {
+            query: "",
+            pictureData: []
+        }
+    },
+    methods: {
+        search: function () {
+            Vue.http.post("http://localhost:8082/pictures/query", this.query).then(response => {
+                return response.json();
+            }).then(data => {
+                this.pictureData = data;
+            });
+        }
+    },
+    template: `<div>
+               <form v-on:submit.prevent="search">
+               <input v-model="query" placeholder="query"></input>
+               <button type="submit">Search!</button>
+               </form>
+               <ps-picture v-for="picture in pictureData" :key="picture.pictureId" v-bind:picture="picture" picture-store-base-url="http://localhost:8081/pictures/"></ps-picture>
+               </div>`
+})
+
 Vue.component('ps-uploader', {
     data: function () {
         return {
+            file: {},
+            tagsText: '',
+            descriptionText: '',
         }
     },
     methods: {
         upload: function () {
-            alert();
-        }
+            this.file = this.$refs.myFile.files[0];
+
+            var config = {
+                headers: {
+                    'Content-Type': this.file.type,
+                },
+            }
+            var tags = this.tagsText.split(',')
+            tags.forEach(tag => {
+                tag.trim();
+            });
+            Vue.http.post("http://localhost:8081/pictures/", this.file, config).then(response => {
+                Vue.http.post("http://localhost:8082/pictures/", {
+                    tags: tags,
+                    descriptionText: this.descriptionText,
+                    pictureId: response.data
+                }).then(response => {
+                    alert("Upload successful!");
+                    this.$refs.myForm.reset();
+                }, response => { alert("upload failed:" + response) });
+            }, response => { alert("upload failed:" + response); });
+        },
+        onSubmit: function () { }
     },
     template: `
         <div>
-            <input type="file" accept="image/*">
-            <button v-on:click=upload>Upload</button>
+        <form v-on:submit.prevent="onSubmit" ref="myForm" action="/">
+            <input ref="myFile" type="file" accept="image/*">
+            <input v-model="descriptionText" type="text" placeholder="description text">
+            <input v-model="tagsText" type="text" placeholder="E.g. abc, def ghi, jkl, ...">
+            <button type="submit "v-on:click=upload>Upload</button>
+        </form>
         </div>
         `
 })
 
 var app = new Vue({
-    el: '#app',
-    data: {
-        picture: {
-            id: "AWTg1S3e2vCljK26g0Ds",
-            tags: [
-                "abc",
-                "abc def",
-                "def"
-            ],
-            descriptionText: "abc def abc abc+abc",
-            pictureId: "273c5543-4149-4eeb-b548-f2b27cbca619"
-        }
-    }
+    el: '#app'
 })

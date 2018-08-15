@@ -1,11 +1,7 @@
 # Picture Search #
 ## Building #
 ```bash
-mvn install
-```
-## Running Locally ##
-```bash
-mvn spring-boot:run
+./build.sh
 ```
 ## Running with docker ## 
 This includes an elasticsearch instance
@@ -13,4 +9,12 @@ This includes an elasticsearch instance
 docker-compose build
 docker-compose up
 ```
+## Usage ##
+Entrypoint: http://localhost:8080/index.html
+
+Example-pictures:
+```bash
+./copy_examples.sh
+```
+
 
