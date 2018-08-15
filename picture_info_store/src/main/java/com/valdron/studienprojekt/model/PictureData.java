@@ -22,13 +22,13 @@ public class PictureData {
 
     public PictureData(NewPictureData newPictureData) {
         tags = newPictureData.getTags();
-        descriptionText = newPictureData.getDescriptionString();
+        descriptionText = newPictureData.getDescriptionText();
         pictureId = newPictureData.getPictureId();
     }
 
     /**
-    * @return the descriptionText
-    */
+     * @return the descriptionText
+     */
     public String getDescriptionText() {
         return descriptionText;
     }

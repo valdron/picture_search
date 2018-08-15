@@ -1,6 +1,6 @@
 {
 	"pictureId": "3fb5197c-4ae8-4819-b1ad-5cc8d79ca4c2",
-	"descriptionString": "But what you may not know is that Swarm works well with other cluster managers, such as Kubernetes, Cloud Foundry, Nomad, and more. Many enterprises are building dockerized applications that can run using different cluster managers, depending on the particular use case. The result is that they are seeking heterogeneity, or at least flexibility to choose different solution. That is where Docker Swarm comes in. The Docker Engine has always been about open interfaces, and giving you choice in how you deploy your application. Swarm allows you to manage all your Docker resources and keep the Docker API experience.",
+	"descriptionText": "But what you may not know is that Swarm works well with other cluster managers, such as Kubernetes, Cloud Foundry, Nomad, and more. Many enterprises are building dockerized applications that can run using different cluster managers, depending on the particular use case. The result is that they are seeking heterogeneity, or at least flexibility to choose different solution. That is where Docker Swarm comes in. The Docker Engine has always been about open interfaces, and giving you choice in how you deploy your application. Swarm allows you to manage all your Docker resources and keep the Docker API experience.",
 	"tags": [
 		"Cluster Managment",
 		"deployment",

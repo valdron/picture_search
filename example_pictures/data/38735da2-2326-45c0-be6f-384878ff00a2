@@ -1,6 +1,6 @@
 {
 	"pictureId": "38735da2-2326-45c0-be6f-384878ff00a2",
-	"descriptionString": "rkt (ausgesprochen wie „rock-it“[3]) ist eine Open-Source-Software, die dazu verwendet werden kann, Anwendungen mithilfe von Betriebssystemvirtualisierung in Containern zu isolieren. Sie steht in Konkurrenz zu Docker. ",
+	"descriptionText": "rkt (ausgesprochen wie „rock-it“[3]) ist eine Open-Source-Software, die dazu verwendet werden kann, Anwendungen mithilfe von Betriebssystemvirtualisierung in Containern zu isolieren. Sie steht in Konkurrenz zu Docker. ",
 	"tags": [
 		"rkt",
 		"container",

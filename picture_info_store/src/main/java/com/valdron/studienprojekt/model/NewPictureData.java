@@ -10,17 +10,17 @@ import javax.validation.constraints.NotNull;
  */
 public class NewPictureData {
 
-    private String descriptionString;
+    private String descriptionText;
     @NotNull
     private ArrayList<String> tags;
     @NotNull
     private UUID pictureId;
 
     /**
-     * @return the descriptionString
+     * @return the descriptionText
      */
-    public String getDescriptionString() {
-        return descriptionString;
+    public String getDescriptionText() {
+        return descriptionText;
     }
 
     /**
@@ -38,10 +38,10 @@ public class NewPictureData {
     }
 
     /**
-     * @param descriptionString the descriptionString to set
+     * @param descriptionText the descriptionText to set
      */
-    public void setDescriptionString(String descriptionString) {
-        this.descriptionString = descriptionString;
+    public void setdescriptionText(String descriptionText) {
+        this.descriptionText = descriptionText;
     }
 
     /**

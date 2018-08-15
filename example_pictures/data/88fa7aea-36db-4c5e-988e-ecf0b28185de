@@ -1,6 +1,6 @@
 {
 	"pictureId": "88fa7aea-36db-4c5e-988e-ecf0b28185de",
-	"descriptionString": "Docker Swarm is native clustering for Dockerized distributed apps. It picks-up where Docker Machines leaves off by optimizing host resource utilization and providing failover services.  Specifically, Docker Swarm allows users to create resource pools of hosts running Docker daemons and then schedule Docker containers to run on top, automatically managing workload placement and maintaining cluster state.",
+	"descriptionText": "Docker Swarm is native clustering for Dockerized distributed apps. It picks-up where Docker Machines leaves off by optimizing host resource utilization and providing failover services.  Specifically, Docker Swarm allows users to create resource pools of hosts running Docker daemons and then schedule Docker containers to run on top, automatically managing workload placement and maintaining cluster state.",
 	"tags": [
 		"docker",
 		"swarm",
